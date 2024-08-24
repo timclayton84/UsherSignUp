@@ -11,7 +11,12 @@ header {
     padding: 20px;
     text-align: center;
 }
-
+.header2 {
+    background-color: f4f4f4;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: left;
+}
 main {
     margin: 20px auto;
     padding: 20px;
@@ -20,7 +25,14 @@ main {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+/*.working-form {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}*/
 .form-group {
     margin-bottom: 15px;
 }
@@ -54,10 +66,21 @@ button:hover {
     background-color: #45a049;
 }
 
+#canvas-container {
+    width: 100%;
+    text-align:center;
+ }
+ 
+ canvas {
+    width: 100%;
+    display: inline;
+ }
+
 footer {
     text-align: center;
-    padding: 10px;
-    margin-top: 20px;
+    padding: 40px;
+    margin-top: 40px;
     background-color: #f1f1f1;
     border-top: 1px solid #ccc;
 }
+

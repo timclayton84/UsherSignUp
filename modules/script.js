@@ -1,3 +1,4 @@
+export let signupList = JSON.parse(localStorage.getItem('localList')) || [];
 document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -10,7 +11,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     let existingVolunteer = false
     let existingSelection = false
     //storing variable values to localstorage
-    let signupList = JSON.parse(localStorage.getItem('localList')) || [];
+    //signupList = JSON.parse(localStorage.getItem('localList')) || [];
     
     
     try{
