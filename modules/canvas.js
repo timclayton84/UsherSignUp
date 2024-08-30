@@ -10,31 +10,10 @@ document.getElementById('working-form').addEventListener('submit', function(even
     const canvas = document.getElementById("myCanvas");
     const sectionshape = canvas.getContext("2d");
     const labeltxt = canvas.getContext("2d");
-    //const txts1FL = canvas.getContext("2d");
-    //const txts1FR = canvas.getContext("2d");
-    //const txts1BL = canvas.getContext("2d");
-    //const txts1BR = canvas.getContext("2d");
-    //const txts2 = canvas.getContext("2d");
-    //const txts2FL = canvas.getContext("2d");
-    //const txts2FR = canvas.getContext("2d");
-    //const txts2BL = canvas.getContext("2d");
-    //const txts2BR = canvas.getContext("2d");
-    //const txts3 = canvas.getContext("2d");
-    //const txts3FL = canvas.getContext("2d");
-    //const txts3FR = canvas.getContext("2d");
-    //const txts3BL = canvas.getContext("2d");
-    //const txts3BR = canvas.getContext("2d");
-    //const txts4 = canvas.getContext("2d");
-    //const txts4FL = canvas.getContext("2d");
-    //const txts4FR = canvas.getContext("2d");
-    //const txts4BL = canvas.getContext("2d");
-    //const txts4BR = canvas.getContext("2d");
+    
     
     //Clear each ailse after submit
     sectionshape.clearRect(0,0,canvas.width,canvas.height);
-    //sectionshape2.clearRect(0,0,canvas.width,canvas.height);
-    //sectionshape3.clearRect(0,0,canvas.width,canvas.height);
-    //sectionshape4.clearRect(0,0,canvas.width,canvas.height);
 
     // Define section 1
     sectionshape.beginPath();  // Initialize path
@@ -93,6 +72,9 @@ document.getElementById('working-form').addEventListener('submit', function(even
     let s4FR;
     let s4BR;
     let s4BL;
+    let bt1;
+    let bt2;
+    let hall;
     
     //find names working on the date and service times
     for(let key of Object.keys(signupList)){
@@ -201,12 +183,33 @@ document.getElementById('working-form').addEventListener('submit', function(even
         else if(s4BR == undefined){
             s4BR = 'Available';
         }
-        //Set Section 1 Back Left
+        //Set Section 4 Back Left
         if(workingDate == signupList[key].Date && workingServiceTime == signupList[key].ServiceTime && signupList[key].Section == 'section4' && signupList[key].Position == 'Back Left'){
             s4BL = (signupList[key].Name);
         }
         else if(s4BL == undefined){
             s4BL = 'Available';
+        }
+        //Set Section backtable 1
+        if(workingDate == signupList[key].Date && workingServiceTime == signupList[key].ServiceTime && signupList[key].Section == 'backtable1'){
+            bt1 = (signupList[key].Name);
+        }
+        else if(bt1 == undefined){
+            bt1 = 'Available';
+        }
+        //Set Section backtable 2
+        if(workingDate == signupList[key].Date && workingServiceTime == signupList[key].ServiceTime && signupList[key].Section == 'backtable2'){
+            bt2 = (signupList[key].Name);
+        }
+        else if(bt2 == undefined){
+            bt2 = 'Available';
+        }
+        //Set Section hall
+        if(workingDate == signupList[key].Date && workingServiceTime == signupList[key].ServiceTime && signupList[key].Section == 'hall'){
+            hall = (signupList[key].Name);
+        }
+        else if(hall == undefined){
+            hall = 'Available';
         }
     }
 
@@ -217,7 +220,7 @@ document.getElementById('working-form').addEventListener('submit', function(even
     labeltxt.fillText("1",90,65); // Set section 1 placement
     labeltxt.font = "12px Arial";
     labeltxt.fillText(s1FL,70,15);
-    labeltxt.fillText(s1FR,130,40);
+    labeltxt.fillText(s1FR,130,30);
     labeltxt.fillText(s1BR,75,260);
     labeltxt.fillText(s1BL,30,210);
     labeltxt.font = "24px Arial";
@@ -241,6 +244,12 @@ document.getElementById('working-form').addEventListener('submit', function(even
     labeltxt.fillText(s4FR,425,15);
     labeltxt.fillText(s4BR,455,215);
     labeltxt.fillText(s4BL,435,260);
+    labeltxt.fillText("Back Table: ",250,314); // Set section backtable1 placement
+    labeltxt.fillText(bt1,310,314);
+    labeltxt.fillText("Back Table: ",250,326); // Set section backtable2 placement
+    labeltxt.fillText(bt2,310,326);
+    labeltxt.fillText("Hall: ",231,338); // Set section hall placement
+    labeltxt.fillText(hall,310,338);
 });
 
 

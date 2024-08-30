@@ -23,12 +23,9 @@
             }
             });
         });
-    </script>
-    <script type="text/javascript">
         $(function() {
             $("#datepicker2").datepicker(
-            { //minDate: '5',
-                beforeShowDay: function(day) {
+            { beforeShowDay: function(day) {
                 var day = day.getDay();
                 if (day != 0) {
                     return [false]
@@ -69,19 +66,34 @@
 
             <div class="form-group">
                 <label for="section">Choose a Section:</label>
-                <select id="section" name="section" required>
+                <select id="section" name="section" onchange="toggleDropdown()" required>
                     <option value="" disabled selected>Select a Section</option>
                     <option value="section1">Section 1</option>
                     <option value="section2">Section 2</option>
                     <option value="section3">Section 3</option>
                     <option value="section4">Section 4</option>
                     <option value="section5">Section 5</option>
+                    <option value="backtable1">Back Table 1</option>
+                    <option value="backtable2">Back Table 2</option>
+                    <option value="hall">Hall</option>
                 </select>
             </div>
-
+            <script>
+                function toggleDropdown() {
+                    const sectiondd = document.getElementById('section');
+                    const positiondd = document.getElementById('position');
+        
+                    if (sectiondd.value == "backtable1" || sectiondd.value == "backtable2" || sectiondd.value == "hall") {
+                        positiondd.disabled = true;
+                        positiondd.value = "";
+                    } else {
+                        positiondd.disabled = false;
+                    }
+                }
+            </script>
             <div class="form-group">
                 <label for="position">Choose a Position:</label>
-                <select id="position" name="position" required>
+                <select id="position" name="position">
                     <option value="" disabled selected>Select a Position</option>
                     <option value="Front Left"> Front Left</option>
                     <option value="Front Right">Front Right</option>
@@ -118,7 +130,7 @@
         </form>
     </main>
     <div id="canvas-container">
-        <canvas id="myCanvas" width="500" height="300" style="border:1px solid #000000;"></canvas>
+        <canvas id="myCanvas" width="500" height="350" style="border:1px solid #000000;"></canvas>
      </div>
     
     <script type="module" src="./modules/script.js"></script>
