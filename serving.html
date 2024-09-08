@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eastridge Church of Christ Communion Sign-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="./modules/canvas.js" defer></script>
+    <script type="text/javascript">
+        
+    </script>
+</head>
+<body>
+    <div id="navbar" class="navbar">
+        <img src="er_traditional_logo.png" alt="logo">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+            <a href="http://eastridge.cc">Home</a>
+            <a href="index.html">Communion Sign-Up</a>
+            <a href="serving.html">Check Who is Serving</a>
+            <a href="update.html">Update volunteer list</a>
+        </div>
+    </div>
+    <script>
+    </script>
+    <header>
+        <div id="banner" class="banner">
+            <h1>Check who is working</h1>
+            <p>Select a date and service time to see who is volunteering during the service.</p>
+        </div>
+    </header>
+    <main>
+        <form id="working-form">
+                <div class="form-group">
+                    <label for="datepicker">Date:</label>
+                    <input type="text" id="datepicker" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="service-time">Service Time:</label>
+                    <select id="service-time" name="service-time" required>
+                        <option value="" disabled selected>Select a Service Time</option>
+                        <option value="8:30am">8:30 AM</option>
+                        <option value="10:45am">10:45 AM</option>
+                    </select>
+                </div>
+                <button type="submit">Check</button>
+        </form>
+    </main>
+    <footer>
+        <p>Thank you for volunteering!</p>
+    </footer>  
+    <div id="canvas-container">
+        <canvas id="myCanvas" width="500" height="350" style="border:1px solid #000000;"></canvas>
+    </div>
+</body>
+</html>

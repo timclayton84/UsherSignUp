@@ -8,41 +8,31 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
-
+    <script type="text/javascript" src="./modules/script.js" defer></script>
     <script type="text/javascript">
-        $(function() {
-            $("#datepicker").datepicker(
-            { minDate: '0',
-                beforeShowDay: function(day) {
-                var day = day.getDay();
-                if (day != 0) {
-                    return [false]
-                } else {
-                    return [true]
-                }
-            }
-            });
-        });
-        $(function() {
-            $("#datepicker2").datepicker(
-            { beforeShowDay: function(day) {
-                var day = day.getDay();
-                if (day != 0) {
-                    return [false]
-                } else {
-                    return [true]
-                }
-            }
-            });
-        });
+        
     </script>
 </head>
 <body>
+    <div id="navbar" class="navbar">
+        <img src="er_traditional_logo.png" alt="logo">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+            <a href="http://eastridge.cc">Home</a>
+            <a href="index.html">Communion Sign-Up</a>
+            <a href="serving.html">Check Who is Serving</a>
+            <a href="update.html">Update volunteer list</a>
+        </div>
+    </div>
+    <script>
+        
+    </script>
     <header>
-        <h1>Eastridge Church of Christ Communion Sign-Up</h1>
-        <p>Select a place to serve during the service or scroll to see who is working during the service.</p>
+        <div id="banner" class="banner">
+            <h1>Communion Sign-Up</h1>
+            <p>Select a place to serve during the service or scroll to see who is working during the service.</p>
+        </div>
     </header>
-
     <main>
         <form id="signup-form">
             <div class="form-group">
@@ -63,7 +53,6 @@
                     <option value="10:45am">10:45 AM</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label for="section">Choose a Section:</label>
                 <select id="section" name="section" onchange="toggleDropdown()" required>
@@ -79,21 +68,10 @@
                 </select>
             </div>
             <script>
-                function toggleDropdown() {
-                    const sectiondd = document.getElementById('section');
-                    const positiondd = document.getElementById('position');
-        
-                    if (sectiondd.value == "backtable1" || sectiondd.value == "backtable2" || sectiondd.value == "hall") {
-                        positiondd.disabled = true;
-                        positiondd.value = "";
-                    } else {
-                        positiondd.disabled = false;
-                    }
-                }
             </script>
             <div class="form-group">
                 <label for="position">Choose a Position:</label>
-                <select id="position" name="position">
+                <select id="position" name="position" required>
                     <option value="" disabled selected>Select a Position</option>
                     <option value="Front Left"> Front Left</option>
                     <option value="Front Right">Front Right</option>
@@ -107,33 +85,6 @@
     </main>
     <footer>
         <p>Thank you for volunteering!</p>
-    </footer>
-    <main>
-        <form id="working-form">
-            <header2>
-                <h2>Check who is working</h2>
-                <p>Select a date to see who is volunteering during the service.</p>
-            </header2>
-                <div class="form-group">
-                    <label for="datepicker2">Date:</label>
-                    <input type="text" id="datepicker2" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="service-time2">Service Time:</label>
-                    <select id="service-time2" name="service-time2" required>
-                        <option value="" disabled selected>Select a Service Time</option>
-                        <option value="8:30am">8:30 AM</option>
-                        <option value="10:45am">10:45 AM</option>
-                    </select>
-                </div>
-                <button type="submit">Check</button>
-        </form>
-    </main>
-    <div id="canvas-container">
-        <canvas id="myCanvas" width="500" height="350" style="border:1px solid #000000;"></canvas>
-     </div>
-    
-    <script type="module" src="./modules/script.js"></script>
-    <script type="module" src="./modules/canvas.js"></script>
+    </footer> 
 </body>
 </html>

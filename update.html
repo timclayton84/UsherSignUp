@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eastridge Church of Christ Communion Sign-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="/modules/modify.js" defer></script> 
+    <script type="text/javascript">
+        
+    </script>
+</head>
+<body>
+    <div id="navbar" class="navbar">
+        <img src="er_traditional_logo.png" alt="logo">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+            <a href="http://eastridge.cc">Home</a>
+            <a href="index.html">Communion Sign-Up</a>
+            <a href="serving.html">Check Who is Serving</a>
+            <a href="update.html">Update volunteer list</a>
+        </div>
+    </div>
+    <header>
+        <div id="banner" class="banner">
+            <h1>Update who is working</h1>
+            <p>Enter in the information of the person to update or remove.</p>
+        </div>
+    </header>
+    <main>
+        <form id="find-form">
+            <div class="form-group">
+                <p> Enter in the information of the volunteer to modify.</p>
+                <label for="fname">Name:</label>
+                <input type="text" id="fname" autocomplete="off" required>
+            </div>
+			<div class="form-group">
+				<label for="fdatepicker">Date:</label>
+				<input type="text" id="fdatepicker" autocomplete="off" required>
+			</div>
+            <div class="form-group">
+                <label for="fservice-time">Service Time:</label>
+                <select id="fservice-time" name="fservice-time" required>
+                    <option value="" disabled selected>Select a Service Time</option>
+                    <option value="8:30am">8:30 AM</option>
+                    <option value="10:45am">10:45 AM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fsection">Choose a Section:</label>
+                <select id="fsection" name="fsection" onchange="ftoggleDropdown()" required>
+                    <option value="" disabled selected>Select a Section</option>
+                    <option value="section1">Section 1</option>
+                    <option value="section2">Section 2</option>
+                    <option value="section3">Section 3</option>
+                    <option value="section4">Section 4</option>
+                    <option value="section5">Section 5</option>
+                    <option value="backtable1">Back Table 1</option>
+                    <option value="backtable2">Back Table 2</option>
+                    <option value="hall">Hall</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fposition">Choose a Position:</label>
+                <select id="fposition" name="fposition">
+                    <option value="" disabled selected>Select a Position</option>
+                    <option value="Front Left"> Front Left</option>
+                    <option value="Front Right">Front Right</option>
+                    <option value="Back Left">Back Left</option>
+                    <option value="Back Right">Back Right</option>
+                </select>
+            </div>
+            <button type="submit" id="findbutton" href="#updatebutton">Find</button>
+        </form>
+<!---------------------------------------------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------------------------------->
+        <form id="modify-form">
+            <div class="form-group">
+                <p> Use the checkboxes to modify the volunteer information. Then click Update! To delete, make sure all checkboxes are unchecked and click Delete!</p>
+                <label for="uname">
+                    <input type="checkbox" id="nameCheck" name="nameCheck" value="Name" onclick="checkboxName()">
+                    Name:</label>
+                <input type="text" id="uname" autocomplete="off"  disabled>
+            </div>
+			<div class="form-group">
+				<label for="udatepicker">
+                    <input type="checkbox" id="udatepickercheck" name="udatepickercheck" value="Date" onclick="checkboxDate()">
+                    Date:</label>
+				<input type="text" id="udatepicker" autocomplete="off" disabled>
+			</div>
+            <div class="form-group">
+                <label for="uservice-time">
+                    <input type="checkbox" id="userviceTimecheck" name="userviceTimecheck" value="Service-Time" onclick="checkboxService()">
+                    Service Time:</label>
+                <select id="uservice-time" name="uservice-time" disabled>
+                    <option value="" disabled selected>Select a Service Time</option>
+                    <option value="8:30am">8:30 AM</option>
+                    <option value="10:45am">10:45 AM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="usection">
+                    <input type="checkbox" id="usectioncheck" name="usectioncheck" value="Section" onclick="checkboxSection()">
+                    Choose a Section:</label>
+                <select id="usection" name="usection" onchange="utoggleDropdown()" disabled>
+                    <option value="" disabled selected>Select a Section</option>
+                    <option value="section1">Section 1</option>
+                    <option value="section2">Section 2</option>
+                    <option value="section3">Section 3</option>
+                    <option value="section4">Section 4</option>
+                    <option value="section5">Section 5</option>
+                    <option value="backtable1">Back Table 1</option>
+                    <option value="backtable2">Back Table 2</option>
+                    <option value="hall">Hall</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="uposition">
+                    <input type="checkbox" id="upositioncheck" name="uposition" value="Position" onclick="checkboxPosition()">
+                    Choose a Position:</label>
+                <select id="uposition" name="uposition" disabled>
+                    <option value="" disabled selected>Select a Position</option>
+                    <option value="Front Left"> Front Left</option>
+                    <option value="Front Right">Front Right</option>
+                    <option value="Back Left">Back Left</option>
+                    <option value="Back Right">Back Right</option>
+                </select>
+            </div>
+            <button type="button" id="updatebutton">Update</button>
+            <button type="button" id="deletebutton">Delete</button>
+        </form>
+    </main>
+    <footer>
+        <p>Thank you for volunteering!</p>
+    </footer>
+</body>
+</html>

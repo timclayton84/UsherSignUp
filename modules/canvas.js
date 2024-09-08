@@ -1,8 +1,40 @@
-// Intialize global variables
-import {signupList} from "./script.js"
+//function for the collapsing navbar
+function toggleMenu() {
+    var x = document.getElementById("navLinks");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+ // Reset navbar state on window resize
+window.onresize = function() {
+    var x = document.getElementById("navLinks");
+    var width = window.innerWidth;
+
+    if (width > 768) {
+        x.classList.remove("show");
+        x.style.display = "flex"; // Ensure the navbar is visible on larger screens
+    } else {
+        x.style.display = "none"; // Ensure the navbar is hidden on smaller screens unless toggled
+    }
+};
+//datepicker functionality
+$(function() {
+    $("#datepicker").datepicker( {
+        beforeShowDay: function(day) {
+        var day = day.getDay();
+        if (day != 0) {
+            return [false]
+            } else {
+                return [true]
+            }
+        }
+    });
+});
 
 // Set names to positions and sections working for the service time
-document.getElementById('working-form').addEventListener('submit', function(event) {
+document.getElementById('working-form')?.addEventListener('submit', function(event) {
     //Stops page from automatically reloading
     event.preventDefault();
     
@@ -52,8 +84,8 @@ document.getElementById('working-form').addEventListener('submit', function(even
     sectionshape.stroke(); // Draw it
 
     //Stores working-form fields
-    let workingDate = document.getElementById('datepicker2').value;
-    let workingServiceTime = document.getElementById('service-time2').value;
+    let workingDate = document.getElementById('datepicker').value;
+    let workingServiceTime = document.getElementById('service-time').value;
 
     //Intialize positions
     let s1FL; 
@@ -77,6 +109,7 @@ document.getElementById('working-form').addEventListener('submit', function(even
     let hall;
     
     //find names working on the date and service times
+    let signupList = JSON.parse(localStorage.getItem('localList'));
     for(let key of Object.keys(signupList)){
         //Set Section 1 Front Left
         if(workingDate == signupList[key].Date && workingServiceTime == signupList[key].ServiceTime && signupList[key].Section == 'section1' && signupList[key].Position == 'Front Left'){
@@ -251,5 +284,3 @@ document.getElementById('working-form').addEventListener('submit', function(even
     labeltxt.fillText("Hall: ",231,338); // Set section hall placement
     labeltxt.fillText(hall,310,338);
 });
-
-

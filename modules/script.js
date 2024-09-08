@@ -1,11 +1,59 @@
-//declaring global variable and assign values from localstorage if it exists.
-export let signupList = JSON.parse(localStorage.getItem('localList')) || [];
+//collapsing navbar
+function toggleMenu() {
+    var x = document.getElementById("navLinks");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+ // Reset navbar state on window resize
+window.onresize = function() {
+    var x = document.getElementById("navLinks");
+    var width = window.innerWidth;
 
-//function to validate local storage and prevent duplicates 
-document.getElementById('signup-form').addEventListener('submit', function(event) {
-    //keeps page from auto refreshing after submission
+    if (width > 768) {
+        x.classList.remove("show");
+        x.style.display = "flex"; // Ensure the navbar is visible on larger screens
+    } else {
+        x.style.display = "none"; // Ensure the navbar is hidden on smaller screens unless toggled
+    }
+};
+//datepicker
+$(function() {
+    $("#datepicker").datepicker({ 
+        minDate: '0',
+        beforeShowDay: function(day) {
+        var day = day.getDay();
+        if (day != 0) {
+            return [false]
+            } else {
+                return [true]
+            }
+        }
+    });
+});
+
+//validation for non-posisition sections
+function toggleDropdown() {
+    const sectiondd = document.getElementById('section');
+    const positiondd = document.getElementById('position');
+
+    if (sectiondd.value == "backtable1" || sectiondd.value == "backtable2" || sectiondd.value == "hall") {
+        positiondd.disabled = true;
+        positiondd.value = "";
+    } else {
+        positiondd.disabled = false;
+    }
+}
+//declaring variable outside of function
+let signupList = JSON.parse(localStorage.getItem('localList')) || [];
+
+//keeps page from auto refreshing after submission
+document.getElementById('signup-form')?.addEventListener('submit',function(event) {
+    //Stops page from automatically reloading    
     event.preventDefault();
-
+    
     //declaring variables
     let name = document.getElementById('name').value;
     let date = document.getElementById('datepicker').value;
@@ -55,6 +103,4 @@ document.getElementById('signup-form').addEventListener('submit', function(event
             alert(`${name} has already selected this service time for ${date}. Please verify if the name is correct or pick another service time or date`)
         }
     }
-
-    
 });
