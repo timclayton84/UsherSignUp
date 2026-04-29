@@ -64,8 +64,7 @@ document.getElementById("working-form").addEventListener("submit", async functio
 
     const normalizedDate        = normalizeDate(date);
     const normalizedServiceTime = normalizeServiceTime(serviceTime);
-    const normalizedStoredDate = normalizeDate(entry.Date);
-    const normalizedStoredServiceTime = normalizeServiceTime(entry.ServiceTime);
+
 
     // Reset all volunteer name slots to "Available"
     document.querySelectorAll(".volunteer-name").forEach(el => {
@@ -81,11 +80,14 @@ document.getElementById("working-form").addEventListener("submit", async functio
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const volunteers = await response.json();
-        console.log(normalizeDate(entry.Date));
-        console.log(normalizeServiceTime(entry.ServiceTime));
+
         volunteers.forEach(entry => {
-            if (normalizeDate(entry.Date) === normalizedDate &&
-                normalizeServiceTime(entry.ServiceTime) === normalizedServiceTime) {
+            const normalizedStoredDate = normalizeDate(entry.Date);
+            const normalizedStoredServiceTime = normalizeServiceTime(entry.ServiceTime);
+            //if (normalizeDate(entry.Date) === normalizedDate &&
+                //normalizeServiceTime(entry.ServiceTime) === normalizedServiceTime) {
+            if (normalizedStoredDate === normalizedDate &&
+                normalizedStoredServiceTime === normalizedServiceTime) {
                 const elementId = getElementId(entry.Section, entry.Position);
                 const container = document.getElementById(elementId);
                 if (container) {
