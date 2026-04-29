@@ -37,7 +37,7 @@ $(function () {
 document.getElementById("working-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const date        = document.getElementById("datepicker").value;
+    const date        = new DATE(document.getElementById("datepicker").value);
     const serviceTime = document.getElementById("service-time").value;
 
     if (!date || !serviceTime) return;
