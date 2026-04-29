@@ -1,4 +1,8 @@
-//collapsing navbar
+// ============================================================
+// script.js — Sign-Up page (index.html)
+// ============================================================
+
+// Collapsing navbar
 function toggleMenu() {
     var x = document.getElementById("navLinks");
     if (x.style.display === "block") {
@@ -7,74 +11,83 @@ function toggleMenu() {
         x.style.display = "block";
     }
 }
- // Reset navbar state on window resize
-window.onresize = function() {
-    var x = document.getElementById("navLinks");
-    var width = window.innerWidth;
 
-    if (width > 768) {
+window.onresize = function () {
+    var x = document.getElementById("navLinks");
+    if (window.innerWidth > 768) {
         x.classList.remove("show");
-        x.style.display = "flex"; // Ensure the navbar is visible on larger screens
+        x.style.display = "flex";
     } else {
-        x.style.display = "none"; // Ensure the navbar is hidden on smaller screens unless toggled
+        x.style.display = "none";
     }
 };
-//datepicker
-$(function() {
-    $("#datepicker").datepicker({ 
-        minDate: '0',
-        beforeShowDay: function(day) {
-        var day = day.getDay();
-        if (day != 0) {
-            return [false]
-            } else {
-                return [true]
-            }
+
+// Date picker — Sundays only, no past dates
+$(function () {
+    $("#datepicker").datepicker({
+        minDate: "0",
+        beforeShowDay: function (day) {
+            return [day.getDay() === 0];
         }
     });
 });
 
-//validation for non-posisition sections
+// Disable position dropdown for sections that don't use it
 function toggleDropdown() {
-    const sectiondd = document.getElementById('section');
-    const positiondd = document.getElementById('position');
+    const sectiondd = document.getElementById("section");
+    const positiondd = document.getElementById("position");
 
-    if (sectiondd.value == "backtable1" || sectiondd.value == "backtable2" || sectiondd.value == "hall") {
+    if (["backtable1", "backtable2", "hall"].includes(sectiondd.value)) {
         positiondd.disabled = true;
         positiondd.value = "";
     } else {
         positiondd.disabled = false;
     }
 }
-//declaring variable outside of function
-//let signupList = JSON.parse(localStorage.getItem('localList')) || [];
 
-//keeps page from auto refreshing after submission
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJpNoN-fVS73MjW1hTWLO10EXERokWe9Eo1ZmlAB9JoPaPVgDdnEE8Ea-ZFJMQ7e1pMA/exec";
+// ============================================================
+// Google Apps Script does NOT support custom CORS headers on
+// POST responses via ContentService. The standard workaround
+// is to send ALL data as GET parameters so the browser treats
+// the response as a simple cross-origin GET (no preflight).
+// ============================================================
+const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbxJpNoN-fVS73MjW1hTWLO10EXERokWe9Eo1ZmlAB9JoPaPVgDdnEE8Ea-ZFJMQ7e1pMA/exec";
 
-document.getElementById('signup-form').addEventListener('submit', async function(event) {
+document.getElementById("signup-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const date = document.getElementById('datepicker').value;
-    const serviceTime = document.getElementById('service-time').value;
-    const section = document.getElementById('section').value;
-    const position = document.getElementById('position').value;
+    const name        = document.getElementById("name").value.trim();
+    const date        = document.getElementById("datepicker").value;
+    const serviceTime = document.getElementById("service-time").value;
+    const section     = document.getElementById("section").value;
+    const position    = document.getElementById("position").value || "";
 
-    const payload = { Name: name, Date: date, ServiceTime: serviceTime, Section: section, Position: position };
+    if (!name || !date || !serviceTime || !section) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Build GET URL with query params — avoids CORS preflight entirely
+    const params = new URLSearchParams({
+        action:      "signup",
+        Name:        name,
+        Date:        date,
+        ServiceTime: serviceTime,
+        Section:     section,
+        Position:    position
+    });
 
     try {
-        const response = await fetch(WEB_APP_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload),
-            headers: { 'Content-Type': 'application/json' }
-        });
+        const response = await fetch(`${WEB_APP_URL}?${params.toString()}`);
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const result = await response.json();
 
         if (result.status === "success") {
-            alert(result.message);
-            document.getElementById('signup-form').reset();
+            alert(result.message || "Successfully signed up!");
+            document.getElementById("signup-form").reset();
         } else {
             alert(result.message || "Something went wrong.");
         }

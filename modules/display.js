@@ -1,78 +1,100 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJpNoN-fVS73MjW1hTWLO10EXERokWe9Eo1ZmlAB9JoPaPVgDdnEE8Ea-ZFJMQ7e1pMA/exec";
+// ============================================================
+// display.js — serving.html  (Check Who Is Serving)
+// ============================================================
 
-document.getElementById('working-form').addEventListener('submit', async function(e) {
+// Collapsing navbar — defined here since script.js is not loaded on serving.html
+function toggleMenu() {
+    var x = document.getElementById("navLinks");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+
+window.onresize = function () {
+    var x = document.getElementById("navLinks");
+    if (window.innerWidth > 768) {
+        x.classList.remove("show");
+        x.style.display = "flex";
+    } else {
+        x.style.display = "none";
+    }
+};
+
+const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbxJpNoN-fVS73MjW1hTWLO10EXERokWe9Eo1ZmlAB9JoPaPVgDdnEE8Ea-ZFJMQ7e1pMA/exec";
+
+// Date picker — Sundays only; NO minDate so past dates can be checked
+$(function () {
+    $("#datepicker").datepicker({
+        beforeShowDay: function (day) {
+            return [day.getDay() === 0];
+        }
+    });
+});
+
+document.getElementById("working-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const date = document.getElementById('datepicker').value;
-    const serviceTime = document.getElementById('service-time').value;
+    const date        = document.getElementById("datepicker").value;
+    const serviceTime = document.getElementById("service-time").value;
 
     if (!date || !serviceTime) return;
 
-    document.getElementById('display-date').textContent = date;
-    document.getElementById('display-time').textContent = serviceTime === '8:30am' ? '8:30 AM' : '10:45 AM';
+    // Reset all volunteer name slots to "Available"
+    document.querySelectorAll(".volunteer-name").forEach(el => {
+        el.textContent = el.dataset.default || "Available";
+        el.style.color  = "";
+        el.style.fontWeight = "";
+    });
 
     try {
+        // Simple GET — no CORS issues
         const response = await fetch(WEB_APP_URL);
-        const volunteers = await response.json();
 
-        // Reset all names
-        document.querySelectorAll('.vol-name').forEach(el => {
-            el.textContent = 'Available';
-            el.setAttribute('fill', '#666');
-        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const volunteers = await response.json();
 
         volunteers.forEach(entry => {
             if (entry.Date === date && entry.ServiceTime === serviceTime) {
-                const nameId = getNameElementId(entry.Section, entry.Position);
-                const nameEl = document.getElementById(nameId);
-                if (nameEl) {
-                    nameEl.textContent = entry.Name;
-                    nameEl.setAttribute('fill', '#155724');
+                const elementId = getElementId(entry.Section, entry.Position);
+                const container = document.getElementById(elementId);
+                if (container) {
+                    const nameEl = container.querySelector(".volunteer-name");
+                    if (nameEl) {
+                        nameEl.textContent  = entry.Name;
+                        nameEl.style.color      = "#155724";
+                        nameEl.style.fontWeight = "600";
+                    }
                 }
             }
         });
+
     } catch (error) {
-        alert("Could not load volunteer data.");
+        alert("Could not load volunteer data. Please try again.");
         console.error(error);
     }
 });
 
-function getNameElementId(section, position) {
-    if (section === 'backtable1') return 'name-bt1';
-    if (section === 'backtable2') return 'name-bt2';
-    if (section === 'hall') return 'name-hall';
-    
-    const secNum = section.slice(-1);
-    const posMap = { 'Front Left': 'fl', 'Front Right': 'fr', 'Back Left': 'bl', 'Back Right': 'br' };
-    return `name-s${secNum}-${posMap[position]}`;
-}
-
+// Maps section + position values to the HTML element IDs used in serving.html
 function getElementId(section, position) {
-    if (section === 'backtable1') return 'bt1';
-    if (section === 'backtable2') return 'bt2';
-    if (section === 'hall') return 'hall';
-    
-    // For sections 1-4
+    if (section === "backtable1") return "bt1";
+    if (section === "backtable2") return "bt2";
+    if (section === "hall")       return "hall";
+
+    // Sections 1–5: element IDs are like "s1-fl", "s2-br", etc.
+    const secNum = section.replace("section", ""); // "section1" → "1"
     const posMap = {
-        'Front Left': 'fl',
-        'Front Right': 'fr',
-        'Back Left': 'bl',
-        'Back Right': 'br'
+        "Front Left":  "fl",
+        "Front Right": "fr",
+        "Back Left":   "bl",
+        "Back Right":  "br"
     };
-    
-    return `s${section.slice(-1)}-${posMap[position]}`;
+
+    const posCode = posMap[position];
+    if (!posCode) return null;
+
+    return `s${secNum}-${posCode}`;
 }
-//datepicker
-$(function() {
-    $("#datepicker").datepicker({ 
-        minDate: '0',
-        beforeShowDay: function(day) {
-        var day = day.getDay();
-        if (day != 0) {
-            return [false]
-            } else {
-                return [true]
-            }
-        }
-    });
-});
