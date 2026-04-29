@@ -51,7 +51,7 @@ function normalizeDate(value) {
 
 // Normalize service time to lowercase trimmed string: "8:30am" / "10:45am"
 function normalizeServiceTime(value) {
-    return String(value).trim().toLowerCase();
+    return String(value).trim().toLowerCase().replace(/:00\s*(am|pm)/, "$1");  // "8:30:00 am" → "8:30am"
 }
 
 document.getElementById("working-form").addEventListener("submit", async function (e) {
