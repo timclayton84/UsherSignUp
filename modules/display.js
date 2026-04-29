@@ -46,6 +46,7 @@ function normalizeDate(value) {
     const dd = String(d.getUTCDate()).padStart(2, "0");
     const yyyy = d.getUTCFullYear();
     return `${mm}/${dd}/${yyyy}`;
+    console.log();
 }
 
 // Normalize service time to lowercase trimmed string: "8:30am" / "10:45am"
@@ -78,7 +79,8 @@ document.getElementById("working-form").addEventListener("submit", async functio
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const volunteers = await response.json();
-
+        console.log(normalizeDate(entry.Date));
+        console.log(normalizeServiceTime(entry.ServiceTime))'
         volunteers.forEach(entry => {
             if (normalizeDate(entry.Date) === normalizedDate &&
                 normalizeServiceTime(entry.ServiceTime) === normalizedServiceTime) {
