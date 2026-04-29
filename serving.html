@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
-    <script type="text/javascript" src="./modules/canvas.js" defer></script>
+    <script type="text/javascript" src="display.js" defer></script>
     <script type="text/javascript">
         
     </script>
@@ -51,9 +51,126 @@
     </main>
     <footer>
         <p>Thank you for volunteering!</p>
-    </footer>  
-    <div id="canvas-container">
-        <canvas id="myCanvas" width="500" height="350" style="border:1px solid #000000;"></canvas>
+    </footer> 
+     
+    <!-- In serving.html, replace the canvas-container with this: -->
+    <div id="serving-display" class="serving-display">
+        <div class="church-layout">
+            <!-- Sanctuary Header -->
+            <div class="sanctuary-label">Sanctuary - Communion Ushers</div>
+        
+            <!-- Main Sections Grid -->
+            <div class="sections-grid">
+                <!-- Section 1 -->
+                <div class="section" id="section1">
+                    <div class="section-header">Section 1</div>
+                    <div class="positions">
+                        <div class="position" id="s1-fl">
+                            <span class="pos-label">Front Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s1-fr">
+                            <span class="pos-label">Front Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s1-bl">
+                            <span class="pos-label">Back Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s1-br">
+                            <span class="pos-label">Back Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section 2 -->
+                <div class="section" id="section2">
+                    <div class="section-header">Section 2</div>
+                    <div class="positions">
+                        <div class="position" id="s2-fl">
+                            <span class="pos-label">Front Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s2-fr">
+                            <span class="pos-label">Front Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s2-bl">
+                            <span class="pos-label">Back Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s2-br">
+                            <span class="pos-label">Back Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section 3 -->
+                <div class="section" id="section3">
+                    <div class="section-header">Section 3</div>
+                    <div class="positions">
+                        <div class="position" id="s3-fl">
+                            <span class="pos-label">Front Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s3-fr">
+                            <span class="pos-label">Front Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s3-bl">
+                            <span class="pos-label">Back Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s3-br">
+                            <span class="pos-label">Back Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section 4 -->
+                <div class="section" id="section4">
+                    <div class="section-header">Section 4</div>
+                    <div class="positions">
+                        <div class="position" id="s4-fl">
+                            <span class="pos-label">Front Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s4-fr">
+                            <span class="pos-label">Front Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s4-bl">
+                            <span class="pos-label">Back Left</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                        <div class="position" id="s4-br">
+                            <span class="pos-label">Back Right</span>
+                            <span class="volunteer-name" data-default="Available">Available</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Back Tables + Hall (Special areas) -->
+                <div class="back-areas">
+                    <div class="back-position" id="bt1">
+                        <span class="pos-label">Back Table 1</span>
+                        <span class="volunteer-name" data-default="Available">Available</span>
+                    </div>
+                    <div class="back-position" id="bt2">
+                        <span class="pos-label">Back Table 2</span>
+                        <span class="volunteer-name" data-default="Available">Available</span>
+                    </div>
+                    <div class="back-position" id="hall">
+                        <span class="pos-label">Hall</span>
+                        <span class="volunteer-name" data-default="Available">Available</span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="legend">
+                <div><span class="filled"></span> Assigned</div>
+                <div><span class="empty"></span> Available</div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
