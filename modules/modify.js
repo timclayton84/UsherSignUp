@@ -69,7 +69,8 @@ document.getElementById("find-form").addEventListener("submit", async function (
     const date = document.getElementById("fdatepicker").value;
     const serviceTime = document.getElementById("fservice-time").value;
     const section = document.getElementById("fsection").value;
-    const position = document.getElementById("position").value || "";
+    const position = document.getElementById("fposition").value || "";
+    
     const params = new URLSearchParams({
         action:      "find",
         Name:        name,
