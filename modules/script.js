@@ -86,10 +86,12 @@ document.getElementById("signup-form").addEventListener("submit", async function
         const result = await response.json();
 
         if (result.status === "success") {
-            alert(result.message || "Successfully signed up!");
+            alert(result.message);
             document.getElementById("signup-form").reset();
+        } else if (result.status === "duplicate_volunteer" || result.status === "duplicate_position") {
+            alert(result.message);
         } else {
-            alert(result.message || "Something went wrong.");
+            alert(result.message || "Something went wrong. Please try again.");
         }
     } catch (error) {
         alert("Network error. Please check your connection and try again.");
