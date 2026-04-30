@@ -127,7 +127,7 @@ document.getElementById("updatebutton").addEventListener("click", async function
         alert(result.message);
         if (result.status === "success") document.getElementById("modify-form").reset();
     } catch (err) {
-        alert("Update failed.");
+        alert("The update could not be completed. Please check your connection and try again.");
         console.error(err);
     }
 });
