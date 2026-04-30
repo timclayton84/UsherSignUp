@@ -65,12 +65,18 @@ function togglePositionDropdown(sectionId, positionId) {
 document.getElementById("find-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const name = document.getElementById("fname").value.trim();
+    const date = document.getElementById("fdatepicker").value;
+    const serviceTime = document.getElementById("fservice-time").value;
+    const section = document.getElementById("fsection").value;
+    const position = document.getElementById("position").value || "";
     const params = new URLSearchParams({
         action:      "find",
-        Name:        document.getElementById("fname").value.trim(),
-        Date:        document.getElementById("fdatepicker").value,
-        ServiceTime: document.getElementById("fservice-time").value,
-        Section:     document.getElementById("fsection").value
+        Name:        name,
+        Date:        date,
+        ServiceTime: serviceTime,
+        Section:     section,
+        Posistion:   position
     });
 
     try {
